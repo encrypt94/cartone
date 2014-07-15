@@ -25,6 +25,20 @@ module Cartone
           end
           adv_pg = Nokogiri::HTML(open(annuncio.link))
           annuncio.description = adv_pg.css("#annuncio_descrizione > #desc_corpo > h2.desc_dettaglio").text
+          ['#ads_sx', '#ads_dx'].each do |column|
+            adv_pg.css(column).inner_html.strip.split("<br>").each do |info|
+              if info =~ /<strong>(.*):<\/strong>(.*)/
+                key = $1.downcase
+                value = $2.strip
+                case key
+                when 'ultimo aggiornamento'
+                  annuncio.date = value
+                when 'num. camere da letto'
+                  annuncio.data["camere"] = value
+                end
+              end
+            end
+          end
           adv_pg.css('#anteprime > a > img').select do |img|
             annuncio.images.push(self.base_url+img["src"])
           end
