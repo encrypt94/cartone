@@ -28,6 +28,8 @@ module Cartone
             li.css('span.bold').remove
             value = li.text.chomp.strip.downcase
             case key
+            when 'pubblicato'
+              annuncio.date = value
             when 'tipo'
               annuncio.data["type"] = value
             when 'locali'
