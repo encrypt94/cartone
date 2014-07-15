@@ -15,6 +15,7 @@ module Cartone
           item.css("div.annuncio-description > h3 > a").select do |link|
             annuncio.link = link["href"]
           end
+          annuncio.date = item.css('div.annuncio-info > p.data').text
           item.css('div.annuncio-info > p.preferiti').select do |p|
             annuncio.id = self.name+p["id"]
           end
