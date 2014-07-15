@@ -19,6 +19,7 @@ module Cartone
             annuncio.link = self.base_url+link["href"] 
             annuncio.id = self.name+link["name"]
           end
+          annuncio.date = li.css(".date").text
           annuncio.title = li.css("div.descr > p > a > strong").text
           info = li.css("div.descr > p.price").text.gsub(' ','').gsub(10.chr, '')
           unless(info.empty?)
