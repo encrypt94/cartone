@@ -1,7 +1,7 @@
 module Cartone
   class Annuncio
     
-    attr_accessor :id, :service, :link, :title, :description, :images, :data
+    attr_accessor :id, :date, :service, :link, :title, :description, :images, :data
     
     def initialize()
       self.data = {}
