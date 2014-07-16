@@ -50,7 +50,7 @@ module Cartone
       def next_page()
         if self.request =~ /pg=([0-9]*)/
           page_index = $1.to_i+1
-          self.request.gsub("pg="+$1,"pg="+page_index.to_s)
+          self.request.gsub!("pg="+$1,"pg="+page_index.to_s)
         else
           self.request = self.request+"&pg=2"
         end
