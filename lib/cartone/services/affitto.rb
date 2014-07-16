@@ -32,7 +32,7 @@ module Cartone
                 value = $2.strip
                 case key
                 when 'ultimo aggiornamento'
-                  annuncio.date = value
+                  annuncio.date = Annuncio.parse_date(value)
                 when 'num. camere da letto'
                   annuncio.data["camere"] = value
                 end

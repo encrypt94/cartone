@@ -29,7 +29,7 @@ module Cartone
             value = li.text.chomp.strip.downcase
             case key
             when 'pubblicato'
-              annuncio.date = value
+              annuncio.date = Annuncio.parse_date(value)
             when 'tipo'
               annuncio.data["type"] = value
             when 'locali'
