@@ -26,6 +26,18 @@ module Cartone
       text.gsub!(/nov(embre)?/,'november ')
       text.gsub!(/dic(embre)?/,'december ')
       return Chronic.parse(text)
-    end   
+    end
+
+    def to_json()
+      payload = {
+        "title" => title,
+        "service" => service,
+        "date" => date,
+        "link" => link,
+        "description" => description,
+        "images" => images,
+        "data" => data
+      }.to_json
+    end
   end
 end
