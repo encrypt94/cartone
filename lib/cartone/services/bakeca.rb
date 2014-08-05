@@ -28,9 +28,9 @@ module Cartone
             when "tipo immobile"
               annuncio.data["type"] = value.chomp
             when "affitto"
-              annuncio.data["price"] = value.gsub(/[^0-9,]/,'')
+              annuncio.data["price"] = value.gsub(/[^0-9,]/,'').to_f
             when "mq"
-              annuncio.data["size"] = value.gsub(/[^0-9]/,'')
+              annuncio.data["size"] = value.gsub(/[^0-9]/,'').to_i
             end
           end
           adv_pg.css(".gallery > .items > .item > img").select do |img|

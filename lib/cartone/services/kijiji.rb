@@ -17,7 +17,7 @@ module Cartone
             annuncio.id = self.name+link["name"]
             annuncio.link = link["href"]
           end
-          annuncio.data["price"] = item.css('.list-item-price').text.gsub(/[^0-9,]/,'')
+          annuncio.data["price"] = item.css('.list-item-price').text.gsub(/[^0-9,]/,'').to_f
           adv_pg = Nokogiri::HTML(open(annuncio.link))
           annuncio.description = adv_pg.css('#item_description').text.chomp
           adv_pg.css('#thumb-gallery > a').select do |a|
@@ -33,9 +33,9 @@ module Cartone
             when 'tipo'
               annuncio.data["type"] = value
             when 'locali'
-              annuncio.data["locali"] = value.gsub(/[^0-9]/,'')
+              annuncio.data["locali"] = value.gsub(/[^0-9]/,'').to_i
             when 'mq'
-              annuncio.data["size"] = value.gsub(/[^0-9]/,'')
+              annuncio.data["size"] = value.gsub(/[^0-9]/,'').to_i
             end
 
           end

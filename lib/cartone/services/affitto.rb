@@ -19,9 +19,9 @@ module Cartone
             else
               next
             end
-            annuncio.data["price"] = table.css('li.liprezzo').text.gsub(/[^0-9]/,'')
+            annuncio.data["price"] = table.css('li.liprezzo').text.gsub(/[^0-9]/,'').to_f
             annuncio.data["type"] = table.css('ul.dettagli_top > li:nth-child(2)').text
-            annuncio.data["size"] = table.css('ul.dettagli_top > li:nth-child(3)').text.gsub(/[^0-9]/,'')
+            annuncio.data["size"] = table.css('ul.dettagli_top > li:nth-child(3)').text.gsub(/[^0-9]/,'').to_i
           end
           adv_pg = Nokogiri::HTML(open(annuncio.link))
           annuncio.description = adv_pg.css("#annuncio_descrizione > #desc_corpo > h2.desc_dettaglio").text
@@ -34,7 +34,7 @@ module Cartone
                 when 'ultimo aggiornamento'
                   annuncio.date = Annuncio.parse_date(value)
                 when 'num. camere da letto'
-                  annuncio.data["camere"] = value
+                  annuncio.data["camere"] = value.to_i
                 end
               end
             end
