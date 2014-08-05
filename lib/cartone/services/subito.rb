@@ -35,8 +35,9 @@ module Cartone
           end
           adv_pg = Nokogiri::HTML(open(annuncio.link))
           annuncio.description = adv_pg.css("#body_txt").text.gsub(10.chr, '')
-          adv_pg.css("#view_gallery > .annuncio_thumbs > .scrollgallery > ul > li").select do |li|            if li["style"] =~ /url\((.*)\)/
-                                                                                                                annuncio.images.push($1)
+          adv_pg.css("#view_gallery > .annuncio_thumbs > .scrollgallery > ul > li").select do |li|
+            if li["onclick"] =~ /showMainImage\((.*)\)/
+              annuncio.images.push($1)
             end
           end
           annunci.push(annuncio)
