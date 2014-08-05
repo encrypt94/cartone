@@ -1,0 +1,50 @@
+<div class="col-md-10 col-md-offset-1">
+<% annunci.each do |annuncio| %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="col-md-2">
+      <% if annuncio['_source']['images'].count > 0  %>
+      <img alt="140x140" src="<%= annuncio['_source']['images'].first %>" width="140" height="140">
+      <% else %>
+      <img alt="140x140" src="http://www.acsu.buffalo.edu/~rslaine/imageNotFound.jpg" width="140" height="140">
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <a href="/annuncio/<%= annuncio['_id'] %>"><%= annuncio['_source']['title']%></a>
+      <span class="label label-info"><%= annuncio['_source']['service']%></span>
+      <div>
+	<% if annuncio['_source']['data'].has_key?('size')%>
+	<%= annuncio['_source']['data']['size'] %> mq
+	<% end %>
+	<% if annuncio['_source']['data'].has_key?('locali')%>
+	<%= annuncio['_source']['data']['locali'] %> locali
+	<% end %>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <% if annuncio['_source']['data'].has_key?('price') %>
+      <%=  annuncio['_source']['data']['price'] %> €
+      <% else %>
+      no price available
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<ul class="pagination">
+  <% if current > 0 %>
+  <li><a href="/annunci/pages/<%= (current-1) %>">&laquo;</a></li>
+  <% else %>
+  <li class="disabled"><a href="#">&laquo;</a></li>
+  <% end %>
+  <% pages.times do |page| %>
+  <li><a href="/annunci/pages/<%=page%>"><%=page+1%></a></li>
+  <% end %>
+  <% if current < pages %>
+  <li><a href="/annunci/pages/<%= current+1 %>">&raquo;</a></li>
+  <% else %>
+  <li class="disabled"><a href="#">&raquo;</a></li>
+  <% end %>
+</ul>
+</div>
