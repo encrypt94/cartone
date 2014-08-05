@@ -24,19 +24,19 @@ module Cartone
           info = li.css("div.descr > p.price").text.gsub(' ','').gsub(10.chr, '')
           unless(info.empty?)
             if(info =~ /([0-9.]*)€/)
-              annuncio.data["price"] = $1.gsub('.','').to_i.to_s
+              annuncio.data["price"] = $1.gsub('.','').to_f
             end
             if(info =~ /([0-9.]*)mq/)
-              annuncio.data["size"] = $1
+              annuncio.data["size"] = $1.to_i
             end
             if(info =~ /([0-9]*)locali/)
-              annuncio.data["locali"] = $1
+              annuncio.data["locali"] = $1.to_i
             end
           end
           adv_pg = Nokogiri::HTML(open(annuncio.link))
           annuncio.description = adv_pg.css("#body_txt").text.gsub(10.chr, '')
           adv_pg.css("#view_gallery > .annuncio_thumbs > .scrollgallery > ul > li").select do |li|
-            if li["onclick"] =~ /showMainImage\((.*)\)/
+            if li["onclick"] =~ /showMainImage\('(.*)'\)/
               annuncio.images.push($1)
             end
           end
