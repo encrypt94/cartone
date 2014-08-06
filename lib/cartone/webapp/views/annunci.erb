@@ -34,15 +34,15 @@
 
 <ul class="pagination">
   <% if current > 0 %>
-  <li><a href="/annunci/pages/<%= (current-1) %>">&laquo;</a></li>
+  <li><a href="/search/<%= (current-1)%>?<%=query_string%>">&laquo;</a></li>
   <% else %>
   <li class="disabled"><a href="#">&laquo;</a></li>
   <% end %>
   <% pages.times do |page| %>
-  <li><a href="/annunci/pages/<%=page%>"><%=page+1%></a></li>
+  <li><a href="/search/<%=page%>?<%=query_string%>"><%=page+1%></a></li>
   <% end %>
   <% if current < pages %>
-  <li><a href="/annunci/pages/<%= current+1 %>">&raquo;</a></li>
+  <li><a href="/search/<%= current+1%>?<%=query_string%>">&raquo;</a></li>
   <% else %>
   <li class="disabled"><a href="#">&raquo;</a></li>
   <% end %>
