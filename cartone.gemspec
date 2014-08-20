@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = Dir['lib/**/*']
-  spec.executables   = ['cartone-crawler', 'cartone-webapp']
+  spec.executables   = ['cartone-crawler', 'cartone-webapp', 'cartone-cleaner']
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 

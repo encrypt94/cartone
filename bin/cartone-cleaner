@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+require 'cartone'
+require 'cartone/services/subito'
+require 'cartone/services/affitto'
+require 'cartone/services/bakeca'
+require 'cartone/services/kijiji'
+require 'digest'
+require 'elasticsearch'
+
+services = [
+            Cartone::Services::AffittoIt,
+            Cartone::Services::KijijiIt,
+            Cartone::Services::SubitoIt,
+            Cartone::Services::BakecaIt
+           ]
+
+
+threads = []
+
+services.each do |service|
+  threads << Thread.new(service) { |service|
+    service = service.new
+    elastic = Elasticsearch::Client.new(log: true)
+    #Remove zombie documents
+    query = {	   
+      "query" => {
+        "match" => {
+          "service" => service.name
+        }
+      }
+    }
+    size = elastic.search(index: 'annunci', type: 'annuncio', body: query)["hits"]["total"]
+    annunci = elastic.search(index: 'annunci', type: 'annuncio', body: query, size: size)["hits"]["hits"]
+    annunci.each do |annuncio|
+      id = annuncio["_id"]
+      annuncio = annuncio["_source"]
+      unless annuncio["date"].nil?
+        if Chronic.parse(annuncio["date"]) < Chronic.parse("one day ago")
+          unless service.is_alive(annuncio["link"])
+            if annuncio["name"].nil?             
+              puts "ZOMBIE FOUND ["+id+"]: "+annuncio["link"]
+              elastic.delete(index: 'annunci', type: 'annuncio', id: id)
+            end
+          end
+        end
+      end
+    end
+  }
+end
+
+threads.each { |thread| thread.join }
