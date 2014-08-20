@@ -53,6 +53,11 @@ module Cartone
           self.request = self.request+"&o=2"
         end
       end
+
+      def is_alive(link)
+        response = Net::HTTP.get_response(URI(link))
+        response.code != "301"
+      end
     end
   end
 end

@@ -1,6 +1,8 @@
 require "cartone/version"
 require "nokogiri"
 require "open-uri"
+require "net/http"
+require "uri"
 require "chronic"
 require "json"
 require "sinatra"

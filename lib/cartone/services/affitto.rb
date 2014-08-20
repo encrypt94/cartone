@@ -1,3 +1,4 @@
+
 module Cartone
   module Services
     class AffittoIt < Service
@@ -54,6 +55,10 @@ module Cartone
         else
           self.request = self.request+"&pg=2"
         end
+      end
+
+      def is_alive(link)
+        !Nokogiri::HTML(open(link)).text.include?("Annuncio cancellato o codice inserito errato!")
       end
     end
   end

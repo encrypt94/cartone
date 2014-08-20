@@ -47,6 +47,11 @@ module Cartone
           self.request.gsub!(/-casa-([0-9]*)\?\//, "-casa-"+page_index.to_s+"?/")
         end
       end
+
+      def is_alive(link)
+        response = Net::HTTP.get_response(URI(link))
+        response.code != "301"
+      end
     end
   end
 end

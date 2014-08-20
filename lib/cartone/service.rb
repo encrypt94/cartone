@@ -15,5 +15,9 @@ module Cartone
     def next_page()
       raise NoMethodError.new("#{self.name} needs to implement next_page()!")
     end
+
+    def is_alive(link)
+      raise NoMethodError.new("#{self.name} needs to implement is_alive()!")
+    end
   end
 end
