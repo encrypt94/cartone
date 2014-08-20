@@ -12,7 +12,7 @@ services = [
             Cartone::Services::AffittoIt,
             Cartone::Services::KijijiIt,
             Cartone::Services::SubitoIt,
-            Cartone::Services::KijijiIt
+            Cartone::Services::BakecaIt
            ]
 
 
