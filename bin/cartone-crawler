@@ -15,17 +15,23 @@ services = [
             Cartone::Services::KijijiIt
            ]
 
-elastic = Elasticsearch::Client.new(log: true)
+
+threads = []
 
 services.each do |service|
-  service = service.new
-  3.times do
-    service.fetch.each do |annuncio|
-      elastic.index(index: 'annunci',
-                    type: 'annuncio',
-                    id: Digest::SHA1.hexdigest(annuncio.id),
-                    body: annuncio.to_json)
+  threads << Thread.new(service) { |service|
+    service = service.new
+    elastic = Elasticsearch::Client.new(log: true)
+    3.times do
+      service.fetch.each do |annuncio|
+        elastic.index(index: 'annunci',
+                      type: 'annuncio',
+                      id: Digest::SHA1.hexdigest(annuncio.id),
+                      body: annuncio.to_json)
+      end
+      service.next_page
     end
-    service.next_page
-  end
+  }
 end
+
+threads.each { |thread| thread.join }
