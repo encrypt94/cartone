@@ -15,7 +15,7 @@ module Cartone
           annuncio.service = self.name
           annuncio.title = item.css('h2.list-item-title > a').text
           item.css('h2.list-item-title > a').select do |link|
-            annuncio.id = self.name+link["namhttp://www.kijiji.it/annunci/stanze-e-posti-letto/bologna-annunci-malpighi/3-singole-in-via-del-pratello/67610840e"]
+            annuncio.id = self.name+link["name"]
             annuncio.link = link["href"]
           end
           annuncio.data["price"] = item.css('.list-item-price').text.gsub(/[^0-9,]/,'').to_f
