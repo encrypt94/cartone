@@ -8,10 +8,10 @@
   </div>
   <br/>
   <% fields.each do |key,f|%>
-  <% if f['max'] <= 20 %>
-     <% type = "number" %>
+  <% if f['max'] >= 100 %>
+     <% step = "5" %>
      <% else %>
-     <% type = "range" %>
+     <% step = "1" %>
    <% end %>
    <div class="panel panel-default">
      <div class="panel-heading">
@@ -20,11 +20,11 @@
      <div class="panel-body">
        <div class="form-group">
 	 <label>Min</label>
-	 <input name="<%= key %>_from" type="<%= type %>" min="<%= f['min'] %>" max="<%= f['max'] %>" value="<%= f['min']%>">
+	 <input name="<%= key %>_from" step="<%= step %>" type="number" min="<%= f['min'] %>" max="<%= f['max'] %>" value="<%= f['min']%>">
        </div>
        <div class="form-group">
 	 <label>Max</label>
-	 <input name="<%= key %>_to" type="<%= type %>" min="<%= f['min'] %>" max="<%= f['max'] %>" value="<%= f['max']%>">
+	 <input name="<%= key %>_to" step="<%= step %>" type="number" min="<%= f['min'] %>" max="<%= f['max'] %>" value="<%= f['max']%>">
        </div>
      </div>
    </div>
