@@ -1,6 +1,6 @@
 # Cartone
 
-TODO: Write a gem description
+This project is a protoype, is not developed since 1 Sep 2013, the code needs a BIG refactoring, get out.
 
 ## Installation
 
@@ -22,7 +22,7 @@ TODO: Write usage instructions here
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/cartone/fork )
+1. Fork it ( http://github.com/encrypt94/cartone/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
