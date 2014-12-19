@@ -18,7 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`docker build -t "cartone" .`
+
+`docker run -p 4567:4567 -t -i cartone /sbin/my_init /bin/bash`
+
+`cartone-crawler`
+
+`cartone-webapp`
 
 ## Contributing
 
