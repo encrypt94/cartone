@@ -12,16 +12,16 @@ module Cartone
         annunci = []
         page = Nokogiri::HTML(open(self.base_url+self.request))
         
-        page.css("ul.list > li").select do |li|
+        page.css("ul.newList > li").select do |li|
           annuncio = Cartone::Annuncio.new()
-          li.css("div.descr > p > a").select do |link| 
+          li.css("div.adDesc > div.adWhat > a").select do |link|
             annuncio.service = self.name
             annuncio.link = self.base_url+link["href"] 
             annuncio.id = self.name+link["name"]
           end
-          annuncio.date = Annuncio.parse_date(li.css(".date").text)
-          annuncio.title = li.css("div.descr > p > a > strong").text
-          info = li.css("div.descr > p.price").text.gsub(' ','').gsub(10.chr, '')
+          annuncio.date = Annuncio.parse_date(li.css("div.adWhen").text)
+          annuncio.title = li.css("div.adDesc > div.adWhat > a").text
+          info = li.css("div.adWhat > span.price").text.gsub(' ','').gsub(10.chr, '')
           unless(info.empty?)
             if(info =~ /([0-9.]*)€/)
               annuncio.data["price"] = $1.gsub('.','').to_f
